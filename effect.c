@@ -2,14 +2,14 @@
 #include <stdint.h>
 
 typedef union {
-	uint16_t   s;
-	uint8_t    c[2];
+	int16_t  s;
+	uint8_t  c[2];
 } sample;
 
 int main(int argc, char **argv){
 	int    limit;
 	sample s;
-	
+
 	if(argc != 2){
 		fputs("Bad argument line.\n"
 		      "Usage: ./effect {limit}\n", stderr);
@@ -28,6 +28,9 @@ int main(int argc, char **argv){
 
 		if(s.s > limit)
 			s.s = limit;
+
+		if(s.s < -limit)
+			s.s = -limit;
 
 		putchar(s.c[0]);
 		putchar(s.c[1]);
